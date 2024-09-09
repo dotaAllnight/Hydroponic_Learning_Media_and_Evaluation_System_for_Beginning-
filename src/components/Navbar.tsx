@@ -14,7 +14,7 @@ const Navbar = () => {
             </div>
 
             {/*LEFT LINKS*/}
-            <div className='hidden md:flex gap-4 ml-auto'>
+            <div className='hidden text-2xl md:flex gap-12 ml-auto'>
                 <Link href="/">Home</Link>
                 <Link href="/menu">Lesson </Link>
                 <Link href="/">QUIZ</Link>
