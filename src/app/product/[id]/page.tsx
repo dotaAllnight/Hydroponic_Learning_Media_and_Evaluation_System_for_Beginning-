@@ -24,12 +24,12 @@ export const SingleProduct = () => {
 
             {/* Text Container */}
             <div className='flex flex-col items-center md:w-1/2'>
-                <h1 className='text-2xl font-bold mb-4'>{singleLessonPage.lessontitle}</h1>
-                <p className='text-lg'>{singleLessonPage.description}</p>
+                <h1 className='text-2xl font-bold mb-4'> // lesson title </h1>
+                <p className='text-lg'>  // lesson description</p>
                 {singleLessonPage.img && (
                     <div className='mt-4'>
                         <Image
-                            src={singleLessonPage.img}
+                            src=""// lesson image,
                             alt={singleLessonPage.lessontitle}
                             width={500}
                             height={300}
