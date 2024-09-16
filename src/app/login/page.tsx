@@ -1,63 +1,54 @@
 "use client"
-import React, { useState } from 'react'
+
+import { signIn, useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 const LoginPage = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const { data, status } = useSession();
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Handle login logic here
-        console.log('Username:', username);
-        console.log('Password:', password);
-    };
-
+    console.log("data: " + data)
+    console
     return (
-        <div className="bg-green-300 min-h-screen flex items-center justify-center">
-            <div className=" w-full max-w-2xl h-[700px] p-12 bg-white rounded-lg shadow-md">
-                <h1 className="text-2xl font-bold mb-4 text-center">Welcome</h1>
-                <p className="text-gray-600 mb-8 text-center">Log into your account or Create</p>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                            Username
-                        </label>
-                        <input
-                            id="username"
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            required
+        <div className="p-4 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center">
+            {/* BOX */}
+            <div className=" h-full shadow-2xl rounded-md flex flex-col md:flex-row md:h-[70%] md:w-full lg:w-[60%] 2xl:w-1/2">
+                {/* IMAGE CONTAINER */}
+                <div className="relative h-1/3 w-full md:h-full md:w-1/2">
+                    <Image src="/loginBg.png" alt="" fill className="object-cover" />
+                </div>
+                {/* FORM CONTAINER */}
+                <div className="p-10 flex flex-col gap-8 md:w-1/2">
+                    <h1 className="font-bold text-xl xl:text-3xl">Welcome</h1>
+                    <p>Log into your account or create a new one using social buttons</p>
+                    <button className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md" onClick={() => signIn("google")}>
+                        <Image
+                            src="/google.png"
+                            alt=""
+                            width={20}
+                            height={20}
+                            className="object-contain"
                         />
-                    </div>
-                    <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Password
-                        </label>
-                        <input
-                            id="password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            required
+                        <span>Sign in with Google</span>
+                    </button>
+                    <button className="flex gap-4 p-4 ring-1 ring-blue-100 rounded-md">
+                        <Image
+                            src="/facebook.png"
+                            alt=""
+                            width={20}
+                            height={20}
+                            className="object-contain"
                         />
-                    </div>
-                    <div>
-                        <button
-                            type="submit"
-                            className="w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                        >
-                            Log In
-                        </button>
-                    </div>
-                </form>
+                        <span>Sign in with Facebook</span>
+                    </button>
+                    <p className="text-sm">
+                        Have a problem?<Link className="underline" href="/"> Contact us</Link>
+                    </p>
+                </div>
             </div>
         </div>
     );
-
 };
 
-
-export default LoginPage
+export default LoginPage;

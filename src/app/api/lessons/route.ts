@@ -1,18 +1,18 @@
-import { prisma } from "@/utils/connect";
-import { NextResponse } from "next/server";
 
+import { prisma } from "@/utils/connect";
+import { NextRequest, NextResponse } from "next/server";
 
 
 export const GET = async (req: Request) => {
-    // ใช้ searchParams เพื่อดึงค่าจาก URL
+
     const { searchParams } = new URL(req.url);
-    const lessonTypeId = searchParams.get("typeId"); // ดึงค่า typeId จาก URL
+    const lessonTypeId = searchParams.get("typeId");
 
     try {
-        // ค้นหาบทเรียนโดยใช้ where เพื่อกรองตาม lessonTypeId
+
         const lessons = await prisma.lessons.findMany({
             where: {
-                lessonTypeId: lessonTypeId || undefined, // ถ้าไม่มี lessonTypeId จะไม่ใช้เงื่อนไข where
+                lessonTypeId: lessonTypeId || undefined,
             },
             include: {
                 lessonType: true, //  lessonType

@@ -20,6 +20,9 @@ const MenuPage = async () => {
 
     return (
         <div className="bg-[#003b2f] p-4 lg:px-20 xl:px-40 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex flex-col md:flex-row flex-wrap items-center">
+            <div className="bg-[#003b2f] text-white text-center w-full mb-4 py-2">
+                <span className="text-4xl font-bold">Search By Lesson Types</span>
+            </div>
             {lessonTypes.map((lessonType) => (
                 <Link
                     key={lessonType.id}
@@ -33,6 +36,7 @@ const MenuPage = async () => {
             ))}
         </div>
     );
+
 };
 
 export default MenuPage
