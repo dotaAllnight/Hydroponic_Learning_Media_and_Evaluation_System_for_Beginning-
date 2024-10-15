@@ -7,8 +7,9 @@ import { Button } from './ui/button';
 import axios from 'axios';
 import { useToast } from '@/hooks/use-toast';
 
-import { BarChart, ChevronRight } from 'lucide-react';
+import { BarChart, ChevronRight, Timer } from 'lucide-react';
 import Link from 'next/link';
+import QuizCount from './QuizCount';
 
 type QuizClientProps = {
     game: {
@@ -35,8 +36,6 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
     const [wrongAnswers, setWrongAnswers] = React.useState<number>(0);
     const { toast } = useToast();
     const [hasEnded, setHasEnded] = React.useState<boolean>(false);
-
-
 
 
 
@@ -104,14 +103,19 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
 
     if (hasEnded) {
         return (
+            <div style={{ backgroundColor: '#003b2f', padding: '20px', position: 'relative', height: '100vh', width: '100vw' }}>
             <div className='absolute flex flex-col justify-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
                 <div className='px-4 mt-2 font-semibold text-white bg-green-500 rounded-md whitespace-nowrap'>
                     You Completed in {'3min 4s'}
                 </div>
                 <Link href={`/statistics/${game.id}`}>
-                    View Statistics
+                <div className='font-semibold text-white'>
+                View Statistics
+                </div>
+                   
                     <BarChart className='w-4 h-4 ml-2 ' />
                 </Link>
+            </div>
             </div>
         );
     }
@@ -123,17 +127,37 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
     return (
         <div style={{ backgroundColor: '#003b2f', padding: '20px', position: 'relative', height: '100vh', width: '100vw' }}>
 
+
             <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-[80vm] max-w-4xl w-[90vw] '>
-                <p>
-                    <span className='mr-2 text-slate-400'>Topic</span>
-                    <span className='px-2 py-1 text-green-900 rounded-lg bg-[#03fc9d]'>
-                        {game.topic}
-                    </span>
-                </p>
+                <div className='flex flex-row justify-between'>
+                    <div className="flex flex-col">
 
-                {/*Counter */}
+                        <p>
+                            <span className='mr-2 text-slate-400'>Topic</span>
+                            <span className='px-2 py-1 text-green-900 rounded-lg bg-[#03fc9d]'>
+                                {game.topic}
+                            </span>
+                        </p>
 
-             
+                        <div className='flex self-start mt-3 text-slate-400'>
+                            <div>
+                                <Timer className='mr-2' />
+
+                               
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <QuizCount correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} />
+                </div>
+
+               
+
+
+
                 {/*แสดงคำถาม */}
                 <Card className='w-full mt-4  bg-[#03fc9d]'>
                     <CardHeader className='flex flex-row items-center'>

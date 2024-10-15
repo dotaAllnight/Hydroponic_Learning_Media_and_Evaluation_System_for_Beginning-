@@ -34,8 +34,8 @@ const Menu = () => {
                         Login</Link>
                 ) : (
 
-                    <Link href="/orders" onClick={() => setOpen(false)}>
-                        Orders</Link>
+                    <Link href="/" onClick={() => setOpen(false)}>
+                    </Link>
                 )}
                 <Link href="/fav">
                     <FavIcon />
