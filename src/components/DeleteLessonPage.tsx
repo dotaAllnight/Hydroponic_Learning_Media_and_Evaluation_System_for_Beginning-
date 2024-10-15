@@ -1,8 +1,14 @@
 "use client";
 
 import React, { useState } from 'react';
-import Image from 'next/image'; // หากใช้รูป
+import Image from 'next/image';
 import { Lesson } from '../../types/types';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { BookAudio, BrainCircuit, Plus, Trash } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
 
 type DeleteLessonPageProps = {
     lessons: Lesson[];
@@ -22,55 +28,61 @@ const deleteLesson = async (lessonId: string) => {
 
 const DeleteLessonPage = ({ lessons: initialLessons }: DeleteLessonPageProps) => {
     const [lessons, setLessons] = useState<Lesson[]>(initialLessons);
+    const router = useRouter();
 
     const handleDelete = async (lessonId: string) => {
         try {
             await deleteLesson(lessonId);
             setLessons(lessons.filter((lesson) => lesson.lessonId !== lessonId));
+            toast.success("The Lesson has been deleted!");
+            router.push("/menu")
         } catch (err) {
             console.error("Failed to delete lesson", err);
+            toast.success("Something went wrong");
         }
     };
 
     return (
+
         <div className='w-screen bg-gradient-to-r from-[#03fc9d] to-[#028a6b] text-[#003b2f] min-h-screen flex items-center justify-center'>
+
+
+
+
+
+
+
+
             {/* WRAPPER */}
             <div className='flex flex-wrap justify-center space-x-4 p-4'>
+                <ToastContainer />
                 {/* SINGLE ITEM */}
                 {lessons.map((lesson) => (
-                    <div
-                        key={lesson.lessonId}
-                        className='w-[300px] h-[400px] flex flex-col items-center justify-around p-4 bg-gray-200 border border-gray-300 rounded-lg shadow-lg hover:bg-white transition-all duration-300 m-4'
-                    >
-                        {/* IMAGE CONTAINER */}
-                        {lesson.img && (
-                            <div className='relative flex-1 w-full h-2/3'>
-                                <Image
-                                    src={lesson.img}
-                                    alt={lesson.title}
-                                    fill
-                                    className='object-contain'
-                                />
-                            </div>
-                        )}
-
-                        {/* TEXT CONTAINER */}
-                        <div className='flex-1 flex flex-col items-center text-center gap-4'>
-                            <h1 className='text-xl font-bold uppercase'>{lesson.title}</h1>
-
-
-                            {/* DELETE BUTTON */}
+                    <Card key={lesson.lessonId} className="w-full max-w-md h-60 p-4 bg-gray-300/50 border border-gray-300 rounded-md shadow-md hover:bg-[#80e0c1] transition-colors duration-300">
+                        <CardHeader className='flex flex-row items-center justify-between pb-2 space-y-0'>
+                            <CardTitle className='text-2xl font-bold'>
+                                {lesson.title}
+                            </CardTitle>
+                            <BookAudio size={28} strokeWidth={2.5} />
+                        </CardHeader>
+                        <CardContent>
+                            <p className='text-sm text-muted-foreground'> Delete Lesson here !</p>
+                            { }
                             <button
                                 onClick={() => handleDelete(lesson.lessonId)}
-                                className='bg-red-600 text-white p-2 rounded-md hover:bg-red-700 transition-all duration-300'
+                                className='bg-transparent text-red-600 hover:bg-red-100 p-2 rounded-md transition-all duration-300 mt-4 flex justify-between items-center w-full'
                             >
-                                Delete Lesson
+                                <span className='flex-grow'></span>
+                                <Trash size={20} className='w-4 h-4 ml-2' />
                             </button>
-                        </div>
-                    </div>
+                        </CardContent>
+                    </Card>
                 ))}
             </div>
         </div>
+
+
+
     );
 };
 

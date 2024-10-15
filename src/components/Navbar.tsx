@@ -11,7 +11,7 @@ const Navbar = () => {
     const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-        // ตรวจสอบ role ว่าผู้ใช้เป็น admin หรือไม่
+
         if (session?.user?.role === 'Admin') {
             setIsAdmin(true);
         } else {
@@ -27,17 +27,17 @@ const Navbar = () => {
             </div>
 
             {/*LEFT LINKS*/}
-            <div className='hidden text-2xl md:flex gap-12 ml-auto'>
+            <div className='hidden text-xl md:flex gap-12 ml-auto'>
 
                 <Link href="/">Home</Link>
                 <Link href="/menu">Lesson </Link>
-                <Link href="/">QUIZ</Link>
-                <Link href="/"> Q&A </Link>
+                <Link href="/play/game01">QUIZ</Link>
+                <Link href="/myquestionboard"> Q&A </Link>
                 <Link href="/">Contact</Link>
                 <Link href="/profile">Profile</Link>
                 {/* ลิงก์ Admin จะแสดงเฉพาะเมื่อ role เป็น admin */}
                 {isAdmin && (
-                    <Link href="/admin">Admin</Link>
+                    <Link href="/admin/adminmenu">Admin</Link>
                 )}
             </div>
 

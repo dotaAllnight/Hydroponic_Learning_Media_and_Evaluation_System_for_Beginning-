@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Lesson } from "../../../../types/types";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Book } from "lucide-react";
 
 const getData = async (category: string) => {
     const res = await fetch(`http://localhost:3000/api/lessons?typeId=${category}`, {
@@ -22,24 +24,26 @@ const CategoryPage = async ({ params }: Props) => {
 
     return (
         <div className="flex flex-wrap gap-4 justify-center items-start p-4 bg-[#e0f2f1]">
-
             {lessons.map((lesson) => (
                 <Link
                     key={lesson.lessonId}
-                    className="w-full h-[60vh] border-r-2  sm:w-1/2 lg:w-1/3 p-4 flex flex-col justify-between group even:bg-red-100"
-                    href={`/product/${lesson.lessonId}`}
+
+                    href={`/lesson/${lesson.lessonId}`}
                 >
-                    <div className="w-full sm:w-[300px] md:w-[350px] lg:w-[400px] p-4 bg-[#004d40] border border-gray-300 rounded-md shadow-md">
-                        <h2 className="text-xl font-bold text-white">{lesson.title}</h2>
-                        {lesson.img && (
-                            <Image
-                                src={lesson.img}
-                                alt={lesson.title}
-                                width={450}
-                                height={500}
-                            />
-                        )}
-                    </div>
+                    <Card className="w-full max-w-md h-60 p-4 bg-[#004d40] border border-gray-300 rounded-md shadow-md hover:bg-[#80e0c1] transition-colors duration-300">
+
+                        <CardHeader className="flex items-center justify-between">
+                            <CardTitle className="text-xl font-bold text-white">{lesson.title}</CardTitle>
+                            <Book className="text-white" size={28} strokeWidth={2.5} />
+                        </CardHeader>
+                        <CardContent className="flex-grow">
+                            <p className="text-white text-sm">{lesson.description}</p>
+                        </CardContent>
+                    </Card>
+
+
+
+
                 </Link>
             ))}
         </div>

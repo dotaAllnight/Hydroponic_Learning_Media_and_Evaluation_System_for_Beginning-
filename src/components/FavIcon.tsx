@@ -9,7 +9,7 @@ const FavIcon = () => {
                 <div className='relative w-12 h-12 '>
                     <Image src="/fav.png" alt="" fill />
                 </div>
-                <span className='text-2xl'>Favorite (2)</span>
+
             </Link>
         </div>
     )

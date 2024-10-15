@@ -11,13 +11,15 @@ model Lessons {
   lessonId     String     @id @default(cuid())
   title        String
   lessonType   LessonType @relation(fields: [lessonTypeId], references: [id])
-  lessonTypeId String //เชื่อมกับ field id ในตาราง LessonType
+  lessonTypeId String // เชื่อมกับ field id ในตาราง LessonType
   description  String
   content      String
   videoLink    String?
   img          String?
   lessonref    String
   createdAt    DateTime   @default(now())
+
+  historyLessons HistoryLesson[] // เชื่อมกับ HistoryLesson
 }
 
 model LessonType {
@@ -27,26 +29,93 @@ model LessonType {
 }
 
 model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String          @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  // Optional for WebAuthn support
-  Authenticator Authenticator[]
-  role          Role?           @relation(fields: [roleId], references: [id])
-  roleId        String?
+  id             String          @id @default(cuid())
+  name           String?
+  email          String          @unique
+  emailVerified  DateTime?
+  image          String?
+  accounts       Account[]
+  sessions       Session[]
+  Authenticator  Authenticator[]
+  role           Role?           @relation(fields: [roleId], references: [id])
+  roleId         String?
+  historyLessons HistoryLesson[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  answers        Answer[]
+  Game           Game[]
+  questionborad  Questionborad[] @relation("owner")
+}
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Game {
+  id          String     @id @default(cuid())
+  userId      String
+  timeStarted DateTime
+  topic       String
+  timeEnded   DateTime?
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questions   Question[]
+
+  @@index([userId])
+}
+
+model Option {
+  id         String   @id @default(cuid())
+  questionId String
+  text       String
+  isCorrect  Boolean // ใช้ระบุว่าตัวเลือกนี้เป็นคำตอบที่ถูกต้องหรือไม่
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model Question {
+  id         String   @id @default(cuid())
+  question   String
+  gameId     String
+  userAnswer String?
+  isCorrect  Boolean?
+  game       Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  options    Option[]
 }
 
 model Role {
   id       String @id @default(cuid())
-  roleName String
+  roleName String @unique
   users    User[]
+}
+
+model HistoryLesson {
+  id        String   @id @default(cuid())
+  learnDate DateTime @default(now())
+  userId    String
+  lessonId  String
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lessons @relation(fields: [lessonId], references: [lessonId], onDelete: Cascade)
+
+  @@index([userId, lessonId], name: "user_lesson_idx")
+}
+
+model Questionborad {
+  id        String   @id @default(cuid())
+  topic     String   @db.VarChar(255)
+  img       String?
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  owner     User     @relation("owner", fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ownerId   String
+  answers   Answer[]
+
+  @@index([ownerId])
+}
+
+model Answer {
+  id               String        @id @default(cuid())
+  content_answer   String        @db.Text
+  createdAt        DateTime      @default(now())
+  questiosnborad   Questionborad @relation(fields: [questiosnboradId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  questiosnboradId String
+  author           User          @relation(fields: [authorId], references: [id])
+  authorId         String
 }
 
 model Account {

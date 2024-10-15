@@ -9,8 +9,8 @@ export default function Home() {
     <main>
 
       <Slide />
-      <Featured />
-      <Offer />
+     {/*<Featured /> */ }
+     {/* <Offer /> */}
     </main>
   );
 }
