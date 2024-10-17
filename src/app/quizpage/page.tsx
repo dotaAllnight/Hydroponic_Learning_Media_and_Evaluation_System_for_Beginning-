@@ -1,12 +1,20 @@
 "use client";
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@radix-ui/react-separator';
-import { CopyCheck } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+
+import { redirect, useRouter } from 'next/navigation';
+import React from 'react';
+
+type Props = {
+    limit: number
+    userId: string
+}
+
 
 const QuizSelection = () => {
+
     const router = useRouter();
+
 
 
     return (
@@ -32,6 +40,8 @@ const QuizSelection = () => {
                         </Button>
                     </CardContent>
                 </Card>
+
+
             </div>
         </div>
     );

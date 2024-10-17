@@ -1,6 +1,8 @@
 import { prisma } from '@/utils/connect';
 import { NextResponse } from 'next/server';
 
+
+// API เพิ่ม คำตอบ
 export const POST = async (req: Request) => {
     const { content_answer, questiosnboradId, authorId } = await req.json();
 

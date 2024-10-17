@@ -43,5 +43,37 @@ export const POST = async (req: Request) => {
 }
 
 
+export const GET = async (req: Request) => {
+    try {
+        const session = await getAuthSession();
+
+        
+        if (!session || !session.user || !session.user.id) {
+            return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 });
+        }
+
+        const userId = session.user.id;
+
+       
+        const historyLessons = await prisma.historyLesson.findMany({
+            where: { userId }, // ดึงเฉพาะประวัติการเรียนของผู้ใช้ที่กำลังเข้าสู่ระบบ
+            include: {
+                lesson: true, 
+            },
+            orderBy: {
+                learnDate: 'desc', 
+            },
+        });
+
+        return new NextResponse(JSON.stringify({ historyLessons }), { status: 200 });
+    } catch (error) {
+        console.error("Error fetching history lessons:", error);
+        return NextResponse.json(
+            { error: "Failed to fetch history lessons.", details: error instanceof Error ? error.message : "Unknown error" },
+            { status: 500 }
+        );
+    }
+};
+
 
 

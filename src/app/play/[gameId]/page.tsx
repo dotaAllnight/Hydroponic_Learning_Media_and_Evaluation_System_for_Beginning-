@@ -1,8 +1,10 @@
 import QuizClient from "@/components/QuizClient";
 import { prisma } from "@/utils/connect";
+import React from "react";
 
 
 const PlayQuizPage = async ({ params }: { params: { gameId: string } }) => {
+   
     console.log("Game ID : ", params.gameId);
 
     const game = await prisma.game.findUnique({
@@ -12,7 +14,7 @@ const PlayQuizPage = async ({ params }: { params: { gameId: string } }) => {
 
     if (!game) {
         return <p>Game not found</p>
-    }
+    } 
 
     return (
             <QuizClient game={game} />

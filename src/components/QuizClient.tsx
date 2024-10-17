@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { BarChart, ChevronRight, Timer } from 'lucide-react';
 import Link from 'next/link';
 import QuizCount from './QuizCount';
+import Loading from './Loading';
 
 type QuizClientProps = {
     game: {
@@ -36,7 +37,8 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
     const [wrongAnswers, setWrongAnswers] = React.useState<number>(0);
     const { toast } = useToast();
     const [hasEnded, setHasEnded] = React.useState<boolean>(false);
-
+    const [showLoader, setShowLoader] = React.useState(true);
+    const [finished, setFinished] = React.useState(false);
 
 
 
@@ -59,6 +61,7 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
 
     const handleNext = React.useCallback(async () => {
         if (selectedChoice !== null && currentQuestion) {
+            setShowLoader(true); // เริ่มแสดง loader
             try {
                 const userAnswerId = options[selectedChoice].id;
                 const response = await axios.post('/api/checkAnswer', {
@@ -93,10 +96,15 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
 
             } catch (error) {
                 console.error('Error checking answer:', error);
+            } 
+            finally {
+                setShowLoader(false); // หยุดแสดง loader
             }
         }
     }, [selectedChoice, currentQuestion, options, toast]);
 
+
+ 
 
 
 
@@ -104,18 +112,18 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
     if (hasEnded) {
         return (
             <div style={{ backgroundColor: '#003b2f', padding: '20px', position: 'relative', height: '100vh', width: '100vw' }}>
-            <div className='absolute flex flex-col justify-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
-                <div className='px-4 mt-2 font-semibold text-white bg-green-500 rounded-md whitespace-nowrap'>
-                    You Completed in {'3min 4s'}
+                <div className='absolute flex flex-col justify-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
+                    <div className='px-4 mt-2 font-semibold text-white bg-green-500 rounded-md whitespace-nowrap'>
+                        You Completed in {'3min 4s'}
+                    </div>
+                    <Link href={`/statistics/${game.id}`}>
+                        <div className='font-semibold text-white'>
+                            View Statistics
+                        </div>
+
+                        <BarChart className='w-4 h-4 ml-2 ' />
+                    </Link>
                 </div>
-                <Link href={`/statistics/${game.id}`}>
-                <div className='font-semibold text-white'>
-                View Statistics
-                </div>
-                   
-                    <BarChart className='w-4 h-4 ml-2 ' />
-                </Link>
-            </div>
             </div>
         );
     }
@@ -143,7 +151,7 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
                             <div>
                                 <Timer className='mr-2' />
 
-                               
+
                             </div>
                         </div>
 
@@ -154,7 +162,7 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
                     <QuizCount correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} />
                 </div>
 
-               
+
 
 
 

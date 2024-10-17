@@ -3,14 +3,25 @@ import { CopyEventLinkButton } from '@/components/CopyLinkButton';
 import Loading from '@/components/Loading';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Rocket, RocketIcon } from 'lucide-react';
+import { ArrowLeft, Rocket, RocketIcon, Trash } from 'lucide-react';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 
 
-const getData = async (id: string) => { 
+
+const getData = async (id: string) => {
     const res = await fetch(`http://localhost:3000/api/questionborad/${id}`, {
         cache: "no-store",
     });
@@ -32,8 +43,10 @@ const QuestionboradDetail = ({ params }: { params: { id: string } }) => {
     const [authorId, setAuthorId] = useState<string | null>(null);
     const [editingAnswerId, setEditingAnswerId] = useState<string | null>(null);
     const [editedAnswerContent, setEditedAnswerContent] = useState<string>('');
+    const router = useRouter();
     const [showLoader, setShowLoader] = React.useState(true);
     const [finished, setFinished] = React.useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
 
 
 
@@ -174,6 +187,28 @@ const QuestionboradDetail = ({ params }: { params: { id: string } }) => {
     };
 
 
+    const handleDeleteQuestionboard = async () => {
+
+        try {
+            const res = await fetch(`http://localhost:3000/api/questionborad/${params.id}`, {
+                method: "DELETE",
+            });
+
+            if (!res.ok) {
+                throw new Error("Failed to delete questionboard");
+            }
+
+
+            router.push(`/myquestionboard`);
+        } catch (error) {
+            console.error(error);
+        }
+        setOpenDialog(false);
+    };
+
+
+
+
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -210,10 +245,41 @@ const QuestionboradDetail = ({ params }: { params: { id: string } }) => {
                 </div>
             </div>
 
-            <CopyEventLinkButton
-                questionboardId={questionboard.id}
-                questionboardTopic={questionboard.topic}
-            />
+            <div className="flex justify-end mr-2">
+                <CopyEventLinkButton
+                    questionboardId={questionboard.id}
+                    questionboardTopic={questionboard.topic}
+
+                />
+            </div>
+
+            <Button
+                onClick={() => setOpenDialog(true)}
+                className='flex items-center p-2 text-red-400 rounded-md bg-red-900'
+                title='Delete Questionboard'>
+                <Trash className='w-4 h-4' />
+                Delete
+            </Button>
+
+
+            <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+                <Dialog />
+                <DialogContent>
+                    <DialogTitle>Comfirm Delete</DialogTitle>
+                    <DialogDescription>
+                        Are you sure for Delete You QuestionBoard ?
+                    </DialogDescription>
+                    <div className="flex justify-end">
+                        <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+                        <Button onClick={handleDeleteQuestionboard} className='ml-2' variant='destructive'>
+                            Continue
+                        </Button>
+                    </div>
+                </DialogContent>
+            </Dialog>
+
+
+
 
 
 
@@ -279,6 +345,12 @@ const QuestionboradDetail = ({ params }: { params: { id: string } }) => {
                 </ScrollArea>
             </div>
 
+
+
+
+
+
+
             {/* Comments Input Form at the bottom */}
             <form onSubmit={handleSubmit} className="mt-4 w-full">
                 <textarea
@@ -288,7 +360,7 @@ const QuestionboradDetail = ({ params }: { params: { id: string } }) => {
                     placeholder="Write your comment..."
                     className="w-full p-2 border border-gray-300 rounded"
                 />
-                <button type="submit" className="mt-2 w-full px-6 py-3 bg-green-500 text-white rounded flex items-center justify-center">
+                <button type="submit" className="mt-2 w-32 px-6 py-3 bg-green-500 text-white rounded flex items-center justify-center">
                     <Rocket className='w-5 h-4 mr-2' />
                     Submit
                 </button>

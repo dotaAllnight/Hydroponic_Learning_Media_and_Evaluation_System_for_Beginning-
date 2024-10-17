@@ -55,7 +55,6 @@ const AddNewLesson = () => {
     }
 
 
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -106,7 +105,9 @@ const AddNewLesson = () => {
 
                 <div className='w-full flex flex-col gap-2'>
                     <label > Content </label>
-                    <textarea className="ring-1 ring-black p-2 rounded-sm" name="content" onChange={handleChange} />
+                    <textarea className="ring-1 ring-black p-2 rounded-sm" 
+                    name="content" 
+                    onChange={handleChange} />
                 </div >
 
                 <div className='w-full flex flex-col gap-2'>

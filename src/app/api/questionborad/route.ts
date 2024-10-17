@@ -3,6 +3,8 @@
 import { prisma } from '@/utils/connect';
 import { NextResponse } from 'next/server';
 
+
+// APi แสดง 
 export const GET = async (req: Request) => {
     try {
         const questionboards = await prisma.questionborad.findMany({
@@ -21,3 +23,6 @@ export const GET = async (req: Request) => {
         );
     }
 };
+
+
+
