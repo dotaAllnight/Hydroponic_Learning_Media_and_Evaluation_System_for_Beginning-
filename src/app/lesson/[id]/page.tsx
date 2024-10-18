@@ -1,12 +1,13 @@
 "use client"
-import CompleteLessonButton from "@/components/CompleteLessonButton";
 import { Lesson } from "../../../../types/types";
 import { useEffect, useState } from "react";
 import React from "react";
 import Loading from "@/components/Loading";
+import DeleteHistoryButton from "@/components/DeleteHistoryLesson";
 
 import "./../../../app/globals.css"
 import { ScrollArea } from "@/components/ui/scroll-area";
+import CompleteLessonButton from "@/components/CompleteLessonButton";
 
 
 
@@ -91,8 +92,12 @@ const SingleLesson = ({ params }: { params: { id: string } }) => {
                 {singleLesson && (
                     <div className="mt-6">
                         <CompleteLessonButton lessonId={singleLesson.lessonId} />
+                        <DeleteHistoryButton lessonId={singleLesson.lessonId} />
+
                     </div>
                 )}
+
+
             </div>
         </div>
     );

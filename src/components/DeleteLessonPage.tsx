@@ -6,9 +6,18 @@ import { Lesson } from '../../types/types';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { BookAudio, BrainCircuit, Plus, Trash } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogOverlay,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
+import { Button } from './ui/button';
 
 type DeleteLessonPageProps = {
     lessons: Lesson[];
@@ -28,6 +37,7 @@ const deleteLesson = async (lessonId: string) => {
 
 const DeleteLessonPage = ({ lessons: initialLessons }: DeleteLessonPageProps) => {
     const [lessons, setLessons] = useState<Lesson[]>(initialLessons);
+    const [openDialog, setOpenDialog] = useState(false);
     const router = useRouter();
 
     const handleDelete = async (lessonId: string) => {
@@ -48,11 +58,6 @@ const DeleteLessonPage = ({ lessons: initialLessons }: DeleteLessonPageProps) =>
 
 
 
-
-
-
-
-
             {/* WRAPPER */}
             <div className='flex flex-wrap justify-center space-x-4 p-4'>
                 <ToastContainer />
@@ -65,16 +70,40 @@ const DeleteLessonPage = ({ lessons: initialLessons }: DeleteLessonPageProps) =>
                             </CardTitle>
                             <BookAudio size={28} strokeWidth={2.5} />
                         </CardHeader>
+
+
                         <CardContent>
-                            <p className='text-sm text-muted-foreground'> Delete Lesson here !</p>
-                            { }
+                            <p className='text-sm text-muted-foreground'>Delete Lesson here!</p>
                             <button
-                                onClick={() => handleDelete(lesson.lessonId)}
-                                className='bg-transparent text-red-600 hover:bg-red-100 p-2 rounded-md transition-all duration-300 mt-4 flex justify-between items-center w-full'
+                                onClick={() => setOpenDialog(true)}
+                                className='bg-transparent text-red-600 hover:bg-red-100 p-2 rounded-md transition-all duration-300 mt-4 flex justify-between items-center w-70'
                             >
                                 <span className='flex-grow'></span>
                                 <Trash size={20} className='w-4 h-4 ml-2' />
                             </button>
+
+                            <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+                                <DialogOverlay />
+                                <DialogContent>
+                                    <DialogTitle>Confirm Delete</DialogTitle>
+                                    <DialogDescription>
+                                        Are you sure you want to delete your Lesson?
+                                    </DialogDescription>
+                                    <div className="flex justify-end">
+                                        <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+                                        <Button
+                                            onClick={() => handleDelete(lesson.lessonId)}
+                                            className='ml-2'
+                                            variant='destructive'>
+                                            Continue
+                                        </Button>
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
+
+
+
+
                         </CardContent>
                     </Card>
                 ))}

@@ -42,26 +42,65 @@ export const POST = async (req: Request) => {
     }
 }
 
+export const DELETE = async (req: Request) => {
+    try {
+        const session = await getAuthSession();
+        console.log("Session:", session);
+
+        // ตรวจสอบว่า session และ user มีค่าหรือไม่
+        if (!session || !session.user || !session.user.id) {
+            return new NextResponse(JSON.stringify({ error: "User ID is required" }), { status: 401 });
+        }
+
+        const userId = session.user.id;
+        console.log("User ID:", userId);
+
+        const { lessonId } = await req.json(); // ดึง lessonId ที่ต้องการลบ
+
+        if (!lessonId) {
+            return new NextResponse(JSON.stringify({ error: "Lesson ID is required" }), { status: 400 });
+        }
+
+        // ลบ HistoryLesson
+        await prisma.historyLesson.deleteMany({
+            where: {
+                lessonId: lessonId,
+                userId: userId, // ตรวจสอบว่าเป็นของ user นี้หรือไม่
+            },
+        });
+
+        return new NextResponse(JSON.stringify({ message: "HistoryLesson deleted successfully" }), { status: 200 });
+    } catch (error) {
+        console.error("Error deleting history lesson:", error);
+        return NextResponse.json(
+            { error: "Failed to delete history lesson.", details: error instanceof Error ? error.message : "Unknown error" },
+            { status: 500 }
+        );
+    }
+};
+
+
+
 
 export const GET = async (req: Request) => {
     try {
         const session = await getAuthSession();
 
-        
+
         if (!session || !session.user || !session.user.id) {
             return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 });
         }
 
         const userId = session.user.id;
 
-       
+
         const historyLessons = await prisma.historyLesson.findMany({
             where: { userId }, // ดึงเฉพาะประวัติการเรียนของผู้ใช้ที่กำลังเข้าสู่ระบบ
             include: {
-                lesson: true, 
+                lesson: true,
             },
             orderBy: {
-                learnDate: 'desc', 
+                learnDate: 'desc',
             },
         });
 
@@ -74,6 +113,10 @@ export const GET = async (req: Request) => {
         );
     }
 };
+
+
+
+
 
 
 

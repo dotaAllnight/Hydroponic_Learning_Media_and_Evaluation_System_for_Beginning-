@@ -37,29 +37,30 @@ const getData = async (): Promise<GetDataResponse> => {
 const MenuPage = async () => {
     const { lessonTypes, lessons } = await getData();
 
-    return (
-        <div className="bg-[#03fc9d] p-4 lg:px-20 xl:px-40 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex flex-col md:flex-row flex-wrap items-center">
-            <div className="text-[#01a36b] text-center w-full mb-4 py-2">
-                <span className="text-4xl font-bold">Search By Lesson Types</span>
-            </div>
-            {lessonTypes.map((lessonType) => (
-                <Link
-                    key={lessonType.id}
-                    href={`/menu/${lessonType.id}`}
-                    className="flex-1 min-w-[300px] max-w-[400px] h-[200px] bg-[#ffffff] border border-gray-300 rounded-lg p-4 m-2 flex items-center justify-center transition hover:bg-[#84dd8a]"
-                >
-                    <h2 className="text-[#003b2f] text-3xl font-bold text-center">
-                        {lessonType.typeName}
-                    </h2>
-                </Link>
-            ))}
-            {/**{lessons.map((lesson) => (
-                <div key={lesson.lessonId} className="p-4 border border-gray-200 m-2 rounded-lg">
-                    <h3 className="text-lg font-bold">{lesson.title}</h3>
-                    <p>{lesson.description}</p>
-                </div>
-            ))} */}
 
+    return (
+        <div className="bg-[#03fc9d] p-4 lg:px-20 xl:px-40 h-screen flex flex-col justify-center items-center">
+            <div className="text-[#01a36b] text-center mt-30 smb-2 py-2">
+                <h2 className="text-[#01a36b] text-center mt-10 mb-2 text-4xl font-bold justify-start">
+                    Search By Lesson Types
+                </h2>
+
+                <img src="/farmPic.svg" alt="Winners" className="mb-37" />
+
+            </div>
+            <div className="flex flex-wrap justify-center">
+                {lessonTypes.map((lessonType) => (
+                    <Link
+                        key={lessonType.id}
+                        href={`/menu/${lessonType.id}`}
+                        className="flex-1 min-w-[250px] max-w-[300px] h-[150px] bg-[#ffffff] border border-gray-300 rounded-lg p-3 m-2 flex items-center justify-center transition hover:bg-[#84dd8a]"
+                    >
+                        <h2 className="text-[#003b2f] text-2xl font-bold text-center">
+                            {lessonType.typeName}
+                        </h2>
+                    </Link>
+                ))}
+            </div>
         </div>
     );
 };

@@ -77,14 +77,15 @@ const AddNewLesson = () => {
 
 
     return (
-        <div className='bg-[#37ae96]'>
-            <form onSubmit={handleSubmit} className='shadow-lg flex flex-wrap gap-4 p-8'>
-                <h1 className='text-4xl font-semibold text-gray-600'>
+        <div className='bg-[#37ae96] min-h-screen p-15 '>
+
+            <form onSubmit={handleSubmit} className='shadow-lg flex flex-col gap-4 p-8'>
+                <h1 className='text-4xl font-semibold text-gray-600 mb-8'>
                     ADD New Lesson
                 </h1>
 
-                <div className='w-full flex flex-col gap-2'>
-                    <label > Title </label>
+                <div className='w-[70%] flex flex-col gap-2'>
+                    <label> Title </label>
                     <input
                         className="ring-1 ring-black p-2 rounded-sm"
                         type="text"
@@ -93,28 +94,27 @@ const AddNewLesson = () => {
                     />
                 </div>
 
-                <div className='w-full flex flex-col gap-2'>
-                    <label > Desc </label>
+                <div className='w-[70%] flex flex-col gap-2'>
+                    <label> Desc </label>
                     <input
                         className="ring-1 ring-black p-2 rounded-sm"
                         type="text"
                         name="description"
                         onChange={handleChange}
                     />
-                </div >
+                </div>
 
-                <div className='w-full flex flex-col gap-2'>
-                    <label > Content </label>
-                    <textarea className="ring-1 ring-black p-2 rounded-sm" 
-                    name="content" 
-                    onChange={handleChange} />
-                </div >
+                <div className='w-[70%] flex flex-col gap-2'>
+                    <label> Content </label>
+                    <textarea className="ring-1 ring-black p-2 rounded-sm h-40"
+                        name="content"
+                        onChange={handleChange} />
+                </div>
 
-                <div className='w-full flex flex-col gap-2'>
+                <div className='w-[70%] flex flex-col gap-2'>
                     <label> Lesson Type </label>
                     <select name="lessonTypeId" onChange={handleChange} className="ring-1 ring-black p-2 rounded-sm">
                         <option value="">Select Lesson Type</option>
-
                         {lessonTypes.map((type) => (
                             <option key={type.id} value={type.id}>
                                 {type.typeName}
@@ -123,22 +123,23 @@ const AddNewLesson = () => {
                     </select>
                 </div>
 
-                <div className='w-full flex flex-col gap-2'>
-                    <label > Video Link </label>
+                <div className='w-[70%] flex flex-col gap-2'>
+                    <label> Video Link </label>
                     <input className="ring-1 ring-black p-2 rounded-sm" type="text" name="videoLink" onChange={handleChange} />
                 </div>
 
-                <div>
-                    <label > reference </label>
+                <div className='w-[70%] flex flex-col gap-2'>
+                    <label> Reference </label>
                     <input className="ring-1 ring-black p-2 rounded-sm" type="text" name="lessonref" onChange={handleChange} />
                 </div>
 
-                <button type='submit' className='p-2 w-full bg-green-300' > Create new Lesson </button>
-
-
-
-
+                <div className='flex p-8 w-full'>
+                    <button type='submit' className='p-2 w-[20%] bg-green-300'> Create new Lesson </button>
+                </div>
             </form>
+
+
+
         </div>
     )
 }

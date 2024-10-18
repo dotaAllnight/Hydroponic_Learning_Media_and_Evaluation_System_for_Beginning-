@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link'; // Import Link for navigation
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Book, MessageCircleQuestion } from 'lucide-react';
+import { Book, MessageCircleQuestion, Plus } from 'lucide-react';
 import { Questionborad } from '../../../types/types';
 import { CopyEventLinkButton } from '@/components/CopyLinkButton';
 
@@ -41,6 +41,20 @@ const QuestionboardPage = async () => {
     return (
         <div className="flex flex-col items-center w-full">
             <h1 className="text-2xl font-bold mb-4">Question Boards</h1>
+
+            {/* ปุ่มสำหรับสร้าง Questionboard */}
+            <Link href="/addquestionboard">
+                <Card
+                    className="w-full p-4 border-dashed border-[3px] border-spacing-4 grid place-items-center group hover:bg-[#f0f0f0] transition-colors duration-300"
+                >
+                    <CardHeader className="flex items-center justify-center space-x-2">
+                        <Plus className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                        <CardTitle className="text-lg font-bold">Create Questionboard</CardTitle>
+                    </CardHeader>
+                </Card>
+            </Link>
+
+
             {questions.length === 0 ? (
                 <p>No question boards found.</p>
             ) : (
