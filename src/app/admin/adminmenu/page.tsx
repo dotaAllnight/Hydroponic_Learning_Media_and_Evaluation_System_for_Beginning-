@@ -35,7 +35,10 @@ function Adminmenupage({ }: Props) {
                         <p className="text-gray-600 mt-2">update quiz here...</p>
                     </div>
                     <div className="flex justify-end p-4">
-                        <button className="px-4 py-2 bg-green-500 text-white rounded">Continue</button>
+                        <Link href="/updatequiz">
+                            <button className="px-4 py-2 bg-green-500 text-white rounded">Continue</button>
+                        </Link>
+
                     </div>
                 </div>
 

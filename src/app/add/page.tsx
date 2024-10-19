@@ -24,6 +24,25 @@ const AddNewLesson = () => {
 
     const { data: session, status } = useSession();
     const router = useRouter();
+    const [isAdmin, setIsAdmin] = useState(false); //เพิ่มส่วนนี้
+
+
+
+    useEffect(() => { //เพิ่มส่วนน
+
+        if (session?.user?.role === 'Admin') {
+            setIsAdmin(true);
+        } else {
+            setIsAdmin(false);
+            router.push('/'); // redirect ถ้าไม่ใช่ admin
+        }
+    }, [session]);
+
+
+
+
+
+
     const [inputs, setInputs] = useState<Inputs>({
         title: "",
         lessonTypeId: "",
@@ -77,7 +96,7 @@ const AddNewLesson = () => {
 
 
     return (
-        <div className='bg-[#37ae96] min-h-screen p-15 '>
+        <div className='bg-[#91C788] min-h-screen p-15 '>
 
             <form onSubmit={handleSubmit} className='shadow-lg flex flex-col gap-4 p-8'>
                 <h1 className='text-4xl font-semibold text-gray-600 mb-8'>
