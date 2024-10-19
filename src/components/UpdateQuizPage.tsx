@@ -42,6 +42,17 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
     const [updatedQuestion, setUpdatedQuestion] = useState(currentQuestion.question);
 
 
+    // ฟังก์ชันสำหรับเลื่อนไปยังคำถามก่อนหน้า
+    const handlePrevious = () => {
+        if (questionIndex > 0) {
+            setQuestionIndex(prev => prev - 1);
+            setCurrentQuestion(game.questions[questionIndex - 1]);
+            setOptions(game.questions[questionIndex - 1].options);
+            setUpdatedQuestion(game.questions[questionIndex - 1].question); // Reset updatedQuestion to previous question
+        }
+    };
+
+
 
 
     // ฟังก์ชันสำหรับอัปเดตข้อมูลใน state
@@ -115,10 +126,10 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
                                 {game.questions.length}
                             </div>
                         </CardTitle>
-                        <CardDescription>
-                            <div className='text-xl font-semibold text-[#01a36b]'>
+                        <CardDescription className='flex-1'> {/* Allow it to grow */}
+                            <div className='w-full'>
                                 <input
-                                    className='w-full p-2 text-black'
+                                    className='w-full p-2 text-black border rounded-lg' // Added border and rounded for better visibility
                                     type='text'
                                     value={updatedQuestion}
                                     onChange={(e) => handleUpdateQuestion(e.target.value)}
@@ -134,7 +145,7 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
                         return (
                             <div key={index} className="flex items-center w-full mb-4">
                                 <input
-                                    className={`flex-1 py-2 px-4 mr-2 ${option.isCorrect ? 'bg-green-300' : 'bg-red-300'} text-black`}
+                                    className={`flex-1 py-2 px-4 mr-2 rounded-lg ${option.isCorrect ? 'bg-green-300' : 'bg-red-300'} text-black`}
                                     type="text"
                                     value={option.text}
                                     onChange={(e) => handleUpdateOption(index, e.target.value, option.isCorrect)}
@@ -149,13 +160,29 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
                         )
                     })}
 
-                    {/* ปุ่มสำหรับเลื่อนไปยังคำถามถัดไป */}
-                    <Button className='mt-2  bg-[#03fc9d] text-green-900' onClick={handleNext}>
-                        Next <ChevronRight className='w-4 h-5 ml-2' />
-                    </Button>
+                    {/* ปุ่มสำหรับเลื่อนไปยังคำถามก่อนหน้า */}
+                    <div className="flex justify-between mt-4">
+                        <Button
+                            className='bg-[#03fc9d] text-green-900'
+                            onClick={handlePrevious}
+                            disabled={questionIndex === 0}
+                        >
+                            Previous
+                        </Button>
+
+                        {/* ปุ่มสำหรับเลื่อนไปยังคำถามถัดไป */}
+                        <Button
+                            className='bg-[#03fc9d] text-green-900 mr-2'
+                            onClick={handleNext}
+                            disabled={questionIndex === game.questions.length - 1}
+                        >
+                            Next <ChevronRight className='w-4 h-5 ml-2' />
+                        </Button>
+                    </div>
+
 
                     {/* ปุ่มสำหรับส่งข้อมูลที่อัปเดต */}
-                    <Button className='mt-2 bg-blue-500 text-white' onClick={handleSubmitUpdate}>
+                    <Button className='mt-2 bg-[#03fc9d] text-red-900 font-bold' onClick={handleSubmitUpdate}>
                         Submit Updates
                     </Button>
                 </div>

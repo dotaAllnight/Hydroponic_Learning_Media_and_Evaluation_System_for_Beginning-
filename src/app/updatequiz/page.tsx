@@ -1,5 +1,7 @@
 "use client"
 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ShieldQuestion } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -25,7 +27,7 @@ const UpdateQuizPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-   
+
 
 
     // ดึงข้อมูลเกมทั้งหมดจาก API
@@ -57,20 +59,35 @@ const UpdateQuizPage = () => {
     }
 
     return (
-        <div>
-            <h1>Update Quiz Questions</h1>
-            <ul>
+        <div style={{ backgroundColor: '#003b2f', padding: '20px', position: 'relative', height: '100vh', width: '100vw' }}>
+            <div className='absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
+            
+                <img src="/quizPic.svg" alt="Winners" className="mb-10" />
+                <h1 className='text-white text-4xl mb-4'>Update Quiz Questions</h1>
                 {games.map((game) => (
-                    <li key={game.id} className="my-4">
-                        {/* ลิงก์ไปยังหน้าของแต่ละเกมตาม id */}
-                        <Link href={`/updatequiz/${game.id}`}>
-                            <div className="text-blue-500 hover:underline">
-                                Update Quiz for Topic: {game.topic}
-                            </div>
-                        </Link>
-                    </li>
+                    <Card key={game.id} className='w-96 mb-4 flex flex-col items-center'>
+                        <CardHeader>
+                            <CardTitle className='flex items-center text-2xl font-bold text-white'>
+                                <ShieldQuestion className='w-8 h-8 mr-2' />
+                                {game.topic}
+                            </CardTitle>
+                            <CardDescription className='text-black bg-[#03fc9d] rounded-lg'>
+                                Topic: {game.topic}
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className='flex flex-col items-center justify-center'>
+                            <p className='text-black mb-4'>
+                                You Can Update quiz here !
+                            </p>
+                            <Link href={`/updatequiz/${game.id}`}>
+                                <div className='font-semibold text-green-900 cursor-pointer hover:underline'>
+                                    Update QUIZ !
+                                </div>
+                            </Link>
+                        </CardContent>
+                    </Card>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

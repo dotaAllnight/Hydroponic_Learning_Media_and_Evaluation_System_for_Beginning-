@@ -54,7 +54,7 @@ const DeleteLessonPage = ({ lessons: initialLessons }: DeleteLessonPageProps) =>
 
     return (
 
-        <div className='w-screen bg-gradient-to-r from-[#03fc9d] to-[#028a6b] text-[#003b2f] min-h-screen flex items-center justify-center'>
+        <div className='w-screen bg-[#f2f2f2] min-h-screen flex items-center justify-center'>
 
 
 
@@ -63,12 +63,12 @@ const DeleteLessonPage = ({ lessons: initialLessons }: DeleteLessonPageProps) =>
                 <ToastContainer />
                 {/* SINGLE ITEM */}
                 {lessons.map((lesson) => (
-                    <Card key={lesson.lessonId} className="w-full max-w-md h-60 p-4 bg-gray-300/50 border border-gray-300 rounded-md shadow-md hover:bg-[#80e0c1] transition-colors duration-300">
+                    <Card key={lesson.lessonId} className="w-full max-w-md h-60 p-4 bg-[#CDCDCD] border border-gray-300 rounded-md shadow-md hover:bg-[#e4e9e7] transition-colors duration-300">
                         <CardHeader className='flex flex-row items-center justify-between pb-2 space-y-0'>
-                            <CardTitle className='text-2xl font-bold'>
+                            <CardTitle className='text-2xl font-bold text-[#005691]'>
                                 {lesson.title}
                             </CardTitle>
-                            <BookAudio size={28} strokeWidth={2.5} />
+
                         </CardHeader>
 
 
