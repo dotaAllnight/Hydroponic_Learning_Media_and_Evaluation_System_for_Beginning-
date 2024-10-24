@@ -33,7 +33,7 @@ const Navbar = () => {
                 <Link href="/menu">Lesson </Link>
                 <Link href="/quizpage">QUIZ</Link>
                 <Link href="/myquestionboard"> Q&A </Link>
-                <Link href="/">Contact</Link>
+                {/* <Link href="/">Contact</Link>  */}
                 <Link href="/profile">Profile</Link>
                 {/* ลิงก์ Admin จะแสดงเฉพาะเมื่อ role เป็น admin */}
                 {isAdmin && (
@@ -47,6 +47,7 @@ const Navbar = () => {
             </div>
 
             {/*RIGHT LINKS*/}
+            {/* */}
             <div className='hidden md:flex gap-4 ml-auto'>
                 <FavIcon />
                 <UserLinks />

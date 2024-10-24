@@ -57,7 +57,7 @@ const SingleLesson = ({ params }: { params: { id: string } }) => {
 
 
     return (
-        <div className='bg-[#03fc9d] p-3 lg:px-20 xl:px-50 h-screen flex flex-col md:flex-row justify-center items-center text-gray-600 mt-20'>
+        <div className='bg-[#232626] p-3 lg:px-20 xl:px-50 h-screen flex flex-col md:flex-row justify-center items-center text-gray-600 mt-20'>
             {/* Video Container */}
             <div className='flex flex-col items-center md:w-1/2 mb-4 md:mb-0'>
                 {singleLesson?.videoLink && (
@@ -75,15 +75,15 @@ const SingleLesson = ({ params }: { params: { id: string } }) => {
 
             {/* Text Container */}
             <div className='flex flex-col items-center md:w-2/3 text-center md:pl-12 mt-15'>
-                <h1 className='text-xl font-bold mb-4'>{singleLesson?.title}</h1>
-                <p className='text-sm mb-4'>{singleLesson?.description}</p>
+                <h1 className='text-xl font-bold mb-4 text-[#fafffd]'>{singleLesson?.title}</h1>
+                <p className='text-sm mb-4 text-[#fafffd]'>{singleLesson?.description}</p>
 
                 {/* Display content and lesson reference */}
-                <div className='mt-4 boxshadoww overflow-auto' style={{ maxHeight: 'calc(100vh - 300px)' }}>
-                    <ScrollArea className='max-h-90'>
+                <div className=' bg-[#292d2e]  mt-4 boxshadoww overflow-auto' style={{ maxHeight: 'calc(100vh - 300px)' }}>
+                    <ScrollArea className='max-h-90 '>
                         <p className='text-base text-justify mb-2'>{singleLesson?.content}</p>
                     </ScrollArea>
-                    <p className='text-sm mt-4'>
+                    <p className='text-sm mt-4 '>
                         <span className="font-bold">Reference:</span> {singleLesson?.lessonref}
                     </p>
                 </div>

@@ -3,8 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { signIn, useSession } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 const LoginPage = () => {
@@ -17,9 +15,9 @@ const LoginPage = () => {
     <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
       <Card className="w-[300px]" >
         <CardHeader>
-          <CardTitle> Welcome to KM_APP </CardTitle>
+          <CardTitle> Welcome to KM APP </CardTitle>
           <CardDescription>
-            QuizXD is a quiz app that allows you to create and share quizz with your friends.
+            Join us for an exciting quiz on hydroponic gardening! Test your knowledge and discover the secrets to growing fresh veggies without soil.
           </CardDescription>
         </CardHeader>
 

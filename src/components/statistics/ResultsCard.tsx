@@ -18,7 +18,7 @@ const ResultsCard = ({ accuracy }: Props) => {
 
             <CardContent className="flex flex-col items-center justify-center h-3/5">
 
-                {accuracy > 70 ? (
+                {accuracy >= 70 ? (
                     <>
                         <img src="/Winners.svg" alt="Winners" className="mb-4 w-52 h-52" />
                         <TrophyIcon className="mr-4" stroke="gold" size={50} />
@@ -40,17 +40,17 @@ const ResultsCard = ({ accuracy }: Props) => {
                             <div className="flex flex-col text-2xl font-semibold text-gray-500"></div>
                             <span>You did a great job! Let's aim to do even better next time!</span>
                             <span className="text-sm text-center text-black opacity-50">
-                                {"Your Not pass for Quiz"}
+                                {"Your Not pass for Quiz, Try again"}
                             </span>
 
                         </>
                     ) : (
                         <>
-                            <Trophy className='mr-4' stroke='gray' size={50} />
-                            <div className='flex flex-col text-2xl font-semibold text-yellow-400'>
+                            <Badge className='mr-4' stroke='gray' size={50} />
+                            <div className='flex flex-col text-2xl font-semibold text-gray-400'>
                                 <span>Nice try</span>
                                 <span className='text-sm text-center text-black opacity-50'>
-                                    {"> 0% accuracy "}
+                                    {"> Your Not pass for Quiz, Try again "}
                                 </span>
                             </div>
                         </>

@@ -83,7 +83,11 @@ const StatisticsPage = async ({ params: { gameId } }: Props) => {
 
                     {/*QUestionList */}
                     <AnswersQuiz questions={game.questions} />
+
+
+
                     <HistoryComponent limit={5} userId={session.user.id} />
+
 
                 </div>
 

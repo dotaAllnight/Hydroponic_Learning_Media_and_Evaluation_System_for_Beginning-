@@ -45,11 +45,12 @@ const Slide = () => {
                 <h1 className='text-4xl text-center font-bold p-4 leading-relaxed'>
                     {data[currentSlide].title}
                 </h1>
-                <button className='mt-4 px-10 py-2 bg-[#03fc9d] text-[#003b2f] font-semibold rounded'>
+                <a href="/quizpage" className='mt-4 px-10 py-2 bg-[#03fc9d] text-[#003b2f] font-semibold rounded'>
                     Get Started
-                </button>
+                </a>
             </div>
         </div>
+
 
     )
 }

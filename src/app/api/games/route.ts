@@ -36,3 +36,32 @@ export async function GET(req: Request) {
         return new Response(JSON.stringify(games), { status: 200 });
     }
 }
+export async function POST(req: Request) {
+    const { topic, questions, userId } = await req.json();  // รับ userId มาจาก request
+
+    try {
+        const newGame = await prisma.game.create({
+            data: {
+                topic,
+                timeStarted: new Date(), // ใส่ค่าเวลาเริ่มต้นเป็นปัจจุบัน
+                userId, // ต้องได้รับ userId มาจาก request
+                questions: {
+                    create: questions.map((q: any) => ({
+                        question: q.question,
+                        options: {
+                            create: q.options.map((o: any) => ({
+                                text: o.text,
+                                isCorrect: o.isCorrect,
+                            })),
+                        },
+                    })),
+                },
+            },
+        });
+
+        return new Response(JSON.stringify(newGame), { status: 201 });
+    } catch (error) {
+        console.error("Error creating game:", error);
+        return new Response(JSON.stringify({ error: 'Failed to create game' }), { status: 500 });
+    }
+}

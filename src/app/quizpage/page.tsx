@@ -35,6 +35,8 @@ const QuizSelection = () => {
                         This is a multiple-choice quiz consisting of 10 questions.
                         Each question tests your knowledge on basic hydroponic principles and practices.
                     </p>
+
+                    
                     <Button
                         type="button"
                         onClick={() => router.push('/play/game01')}

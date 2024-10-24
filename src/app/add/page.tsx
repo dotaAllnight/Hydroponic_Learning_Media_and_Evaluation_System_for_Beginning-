@@ -96,43 +96,51 @@ const AddNewLesson = () => {
 
 
     return (
-        <div className='bg-[#91C788] min-h-screen p-15 '>
+        <div className='bg-[#0e3452] min-h-screen p-15 '>
 
             <form onSubmit={handleSubmit} className='shadow-lg flex flex-col gap-4 p-8'>
-                <h1 className='text-4xl font-semibold text-gray-600 mb-8'>
+                <h1 className='text-4xl font-semibold text-[#6d96be] mb-8'>
                     ADD New Lesson
                 </h1>
 
-                <div className='w-[70%] flex flex-col gap-2'>
+                <div className='w-[70%] flex flex-col gap-2 text-[#6d96be]'>
                     <label> Title </label>
                     <input
-                        className="ring-1 ring-black p-2 rounded-sm"
+                        className="ring-1 ring-black p-2 rounded-sm bg-[#0e293e] text-[#d1d6db]"
                         type="text"
                         name="title"
                         onChange={handleChange}
+                        placeholder="add Title here..."
                     />
                 </div>
 
-                <div className='w-[70%] flex flex-col gap-2'>
+                <div className='w-[70%] flex flex-col gap-2 text-[#6d96be]'>
                     <label> Desc </label>
                     <input
-                        className="ring-1 ring-black p-2 rounded-sm"
+                        className="ring-1 ring-black p-2 rounded-sm bg-[#0e293e] text-[#d1d6db]"
                         type="text"
                         name="description"
                         onChange={handleChange}
+                        placeholder="add Description here..."
                     />
                 </div>
 
-                <div className='w-[70%] flex flex-col gap-2'>
+                <div className='w-[70%] flex flex-col gap-2 text-[#6d96be]'>
                     <label> Content </label>
-                    <textarea className="ring-1 ring-black p-2 rounded-sm h-40"
+                    <textarea
+                        className="ring-1 ring-black p-2 rounded-sm h-40 bg-[#0e293e] text-[#d1d6db]"
                         name="content"
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        placeholder="add Content here..."
+                    />
+
+
                 </div>
 
-                <div className='w-[70%] flex flex-col gap-2'>
+                <div className='w-[70%] flex flex-col gap-2 text-[#6d96be]'>
                     <label> Lesson Type </label>
-                    <select name="lessonTypeId" onChange={handleChange} className="ring-1 ring-black p-2 rounded-sm">
+                    <select name="lessonTypeId" onChange={handleChange}
+                        className="ring-1 ring-black p-2 rounded-sm bg-[#0e293e]">
                         <option value="">Select Lesson Type</option>
                         {lessonTypes.map((type) => (
                             <option key={type.id} value={type.id}>
@@ -142,18 +150,33 @@ const AddNewLesson = () => {
                     </select>
                 </div>
 
-                <div className='w-[70%] flex flex-col gap-2'>
+                <div className='w-[70%] flex flex-col gap-2 text-[#6d96be]'>
                     <label> Video Link </label>
-                    <input className="ring-1 ring-black p-2 rounded-sm" type="text" name="videoLink" onChange={handleChange} />
+                    <input
+                        className="ring-1 ring-black p-2 rounded-sm bg-[#0e293e]"
+                        type="text"
+                        name="videoLink"
+                        onChange={handleChange}
+                        placeholder="add Video Link here..."
+                    />
                 </div>
 
-                <div className='w-[70%] flex flex-col gap-2'>
+                <div className='w-[70%] flex flex-col gap-2 text-[#6d96be]'>
                     <label> Reference </label>
-                    <input className="ring-1 ring-black p-2 rounded-sm" type="text" name="lessonref" onChange={handleChange} />
+                    <input
+                        className="ring-1 ring-black p-2 rounded-sm bg-[#0e293e]"
+                        type="text"
+                        name="lessonref"
+                        onChange={handleChange}
+                        placeholder="add Reference here..."
+                    />
                 </div>
 
                 <div className='flex p-8 w-full'>
-                    <button type='submit' className='p-2 w-[20%] bg-green-300'> Create new Lesson </button>
+                    <button type='submit'
+                        className='p-2 w-[20%] bg-[#04b78f]'>
+                        Create new Lesson
+                    </button>
                 </div>
             </form>
 

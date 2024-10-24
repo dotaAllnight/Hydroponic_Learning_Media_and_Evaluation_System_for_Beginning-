@@ -42,3 +42,24 @@ export const DELETE = async (req: Request, { params }: { params: { id: string } 
         );
     }
 };
+
+export const PUT = async (req: Request, { params }: { params: { id: string } }) => {
+    try {
+        const { topic, img, content } = await req.json();
+
+       
+        if (!topic || !content) {
+            return NextResponse.json({ message: 'Invalid input' }, { status: 400 });
+        }
+
+        const updatedQuestionborad = await prisma.questionborad.update({
+            where: { id: params.id },
+            data: { topic, img, content },
+        });
+
+        return NextResponse.json(updatedQuestionborad, { status: 200 });
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ message: 'Update failed' }, { status: 500 });
+    }
+};

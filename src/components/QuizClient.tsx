@@ -96,7 +96,7 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
 
             } catch (error) {
                 console.error('Error checking answer:', error);
-            } 
+            }
             finally {
                 setShowLoader(false); // หยุดแสดง loader
             }
@@ -104,7 +104,7 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
     }, [selectedChoice, currentQuestion, options, toast]);
 
 
- 
+
 
 
 
@@ -114,11 +114,11 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
             <div style={{ backgroundColor: '#003b2f', padding: '20px', position: 'relative', height: '100vh', width: '100vw' }}>
                 <div className='absolute flex flex-col justify-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
                     <div className='px-4 mt-2 font-semibold text-white bg-green-500 rounded-md whitespace-nowrap'>
-                        You Completed in {'3min 4s'}
+                        You Completed Quiz
                     </div>
                     <Link href={`/statistics/${game.id}`}>
                         <div className='font-semibold text-white'>
-                            View Statistics
+                            View Your Statistics
                         </div>
 
                         <BarChart className='w-4 h-4 ml-2 ' />
@@ -149,7 +149,7 @@ const QuizClient: React.FC<QuizClientProps> = ({ game }) => {
 
                         <div className='flex self-start mt-3 text-slate-400'>
                             <div>
-                                <Timer className='mr-2' />
+
 
 
                             </div>

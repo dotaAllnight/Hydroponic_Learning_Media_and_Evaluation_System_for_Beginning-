@@ -45,7 +45,7 @@ const CompleteLessonButton = ({ lessonId }: { lessonId: string }) => {
     return (
         <button
             onClick={completeLesson}
-            className='bg-green-500 text-white p-2 rounded-lg hover:bg-green-700 transition'
+            className='bg-[#23ee89] text-white p-2 rounded-lg hover:bg-green-700 transition'
             disabled={completed}
         >
             {completed ? "Lesson Completed" : "Complete Lesson"}

@@ -30,9 +30,9 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
     const { id } = useParams();
 
 
-    // ตรวจสอบว่ามีข้อมูล game หรือไม่
+
     if (!game || !game.questions) {
-        return <div>Loading game data...</div>; // แสดงผลถ้าข้อมูลยังไม่พร้อม
+        return <div>Loading game data...</div>;
     }
 
     const [questionIndex, setQuestionIndex] = useState(0);
@@ -68,12 +68,18 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
     };
 
     const handleNext = () => {
-        if (questionIndex < game.questions.length - 1) {
-            setQuestionIndex(prev => prev + 1);
-            setCurrentQuestion(game.questions[questionIndex + 1]);
-            setOptions(game.questions[questionIndex + 1].options);
-        }
+        setQuestionIndex((prevIndex) => {
+            const newIndex = prevIndex + 1;
+            if (newIndex < game.questions.length) {
+                setCurrentQuestion(game.questions[newIndex]);
+                setOptions(game.questions[newIndex].options);
+                setUpdatedQuestion(game.questions[newIndex].question); // อัปเดตคำถามในฟอร์มแก้ไข
+            }
+            return newIndex;
+        });
     };
+
+
 
     const handleSubmitUpdate = async () => {
         const questionId = currentQuestion.id; // Get the ID of the current question
@@ -104,13 +110,13 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
 
 
     return (
-        <div style={{ backgroundColor: '#003b2f', padding: '20px', position: 'relative', height: '100vh', width: '100vw' }}>
+        <div style={{ backgroundColor: '#0e3452', padding: '20px', position: 'relative', height: '100vh', width: '100vw' }}>
             <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-[80vm] max-w-4xl w-[90vw] '>
                 <div className='flex flex-row justify-between'>
                     <div className="flex flex-col">
                         <p>
                             <span className='mr-2 text-slate-400'>Topic</span>
-                            <span className='px-2 py-1 text-green-900 rounded-lg bg-[#03fc9d]'>
+                            <span className='px-2 py-1 text-white rounded-lg bg-[#0e293e]'>
                                 {game.topic}
                             </span>
                         </p>
@@ -118,15 +124,15 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
                 </div>
 
                 {/* แสดงฟอร์มสำหรับแก้ไขคำถาม */}
-                <Card className='w-full mt-4 bg-[#03fc9d]'>
+                <Card className='w-full mt-4 bg-[#0e293e]'>
                     <CardHeader className='flex flex-row items-center'>
                         <CardTitle className='mr-5 text-center divide-y divide-zinc-400'>
                             <div>{questionIndex + 1}</div>
-                            <div className='text-sm text-slate-400'>
+                            <div className='text-sm bg-[#0e293e] text-[#6d96be]'>
                                 {game.questions.length}
                             </div>
                         </CardTitle>
-                        <CardDescription className='flex-1'> {/* Allow it to grow */}
+                        <CardDescription className='flex-1'>
                             <div className='w-full'>
                                 <input
                                     className='w-full p-2 text-black border rounded-lg' // Added border and rounded for better visibility
@@ -145,7 +151,7 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
                         return (
                             <div key={index} className="flex items-center w-full mb-4">
                                 <input
-                                    className={`flex-1 py-2 px-4 mr-2 rounded-lg ${option.isCorrect ? 'bg-green-300' : 'bg-red-300'} text-black`}
+                                    className={`flex-1 py-2 px-4 mr-2 rounded-lg ${option.isCorrect ? 'bg-[#04b78f] text-white' : 'bg-[#b73c4a]  text-white'} text-black`}
                                     type="text"
                                     value={option.text}
                                     onChange={(e) => handleUpdateOption(index, e.target.value, option.isCorrect)}
@@ -163,7 +169,7 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
                     {/* ปุ่มสำหรับเลื่อนไปยังคำถามก่อนหน้า */}
                     <div className="flex justify-between mt-4">
                         <Button
-                            className='bg-[#03fc9d] text-green-900'
+                            className='bg-[#0e293e] text-[#6d96be]'
                             onClick={handlePrevious}
                             disabled={questionIndex === 0}
                         >
@@ -172,7 +178,7 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
 
                         {/* ปุ่มสำหรับเลื่อนไปยังคำถามถัดไป */}
                         <Button
-                            className='bg-[#03fc9d] text-green-900 mr-2'
+                            className='bg-[#0e293e] text-[#6d96be] font-bold'
                             onClick={handleNext}
                             disabled={questionIndex === game.questions.length - 1}
                         >
@@ -182,7 +188,7 @@ const UpdateQuizPage = ({ game }: QuizClientProps) => {
 
 
                     {/* ปุ่มสำหรับส่งข้อมูลที่อัปเดต */}
-                    <Button className='mt-2 bg-[#03fc9d] text-red-900 font-bold' onClick={handleSubmitUpdate}>
+                    <Button className='mt-2 bg-[#0e293e] text-[#6d96be] font-bold' onClick={handleSubmitUpdate}>
                         Submit Updates
                     </Button>
                 </div>

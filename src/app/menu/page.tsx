@@ -42,7 +42,7 @@ const MenuPage = async () => {
         <div className="bg-[#03fc9d] p-4 lg:px-20 xl:px-40 h-screen flex flex-col justify-center items-center">
             <div className="text-[#01a36b] text-center mt-30 smb-2 py-2">
                 <h2 className="text-[#01a36b] text-center mt-10 mb-2 text-4xl font-bold justify-start">
-                    Search By Lesson Types
+                    Select Lesson Types
                 </h2>
 
                 <img src="/farmPic.svg" alt="Winners" className="mb-37" />

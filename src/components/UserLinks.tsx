@@ -9,7 +9,7 @@ const UserLinks = () => {
         <div>
             {status === "authenticated" ? (
                 <div>
-                    <Link href="/fav">Favorite</Link>
+                    <Link href="/fav"></Link>
                     <button
                         onClick={() => signOut()}
                         className="ml-4 bg-red-500 text-white px-4 py-2 rounded-lg"

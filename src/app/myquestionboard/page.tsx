@@ -3,9 +3,9 @@
 import React from 'react';
 import Link from 'next/link'; // Import Link for navigation
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Book, MessageCircleQuestion, Plus } from 'lucide-react';
+import {  MessageCircleQuestion, Plus } from 'lucide-react';
 import { Questionborad } from '../../../types/types';
-import { CopyEventLinkButton } from '@/components/CopyLinkButton';
+
 
 
 
@@ -40,7 +40,7 @@ const QuestionboardPage = async () => {
 
     return (
         <div className="flex flex-col items-center w-full">
-            <h1 className="text-2xl font-bold mb-4">Question Boards</h1>
+            <h1 className="text-2xl font-bold mb-4">Q&A</h1>
 
             {/* ปุ่มสำหรับสร้าง Questionboard */}
             <Link href="/addquestionboard">
@@ -72,9 +72,11 @@ const QuestionboardPage = async () => {
                                 </CardHeader>
                                 <CardContent>
                                     <p className="text-white text-sm">{question.content}</p>
-                                    {question.img && (
+
+                                    {/* {question.img && (
                                         <img src={question.img} alt={question.topic} className="mt-2 mb-2 rounded-md" />
-                                    )}
+                                    )} */}
+
                                     <p className="text-white text-xs">
                                         Created At: {new Date(question.createdAt).toLocaleString()}
                                     </p>
